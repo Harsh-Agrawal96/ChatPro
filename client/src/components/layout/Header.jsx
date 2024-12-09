@@ -43,9 +43,7 @@ const Header = () => {
   };
 
   const openSearch = () => {
-    console.log( isSearch);
     setIsSearch( prev => !prev );
-    console.log( isSearch);
   };
 
   const openNewGroup = () => {
