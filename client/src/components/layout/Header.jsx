@@ -18,6 +18,7 @@ import {
   Notifications as NotificationIcon
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { orange } from '../../constants/Color.js';
 
 
 const SearchDialog = lazy( () => import("../specific/Search.jsx") );
@@ -60,14 +61,12 @@ const Header = () => {
     console.log("logoutHandler");
   };
 
-  const oranges = "#ea7070";
-
 
   return <>
   
     <Box sx={{ flexGrow: 1, height: "3rem" }} >
       <AppBar position='static' sx={{
-        bgcolor: oranges,
+        bgcolor: orange,
         height: "100%",
       }} >
         <Toolbar sx={{
