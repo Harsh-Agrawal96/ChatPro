@@ -47,3 +47,40 @@ export const sampleNotification = [
     },
 ]
 
+
+export const sampleMessages = [
+    {
+        attachments : [
+            {
+                public_id : "lagf",
+                url : "https://www.w3schools.com/howto/img_avatar.png"
+            },
+        ],
+        content : "Laude ka Message hai",
+        _id : "laskfj asd",
+        sender : {
+            _id : "user._id",
+            name : "chauhan"
+        },
+        name : "chatId",
+        createdAt : "2024-02-12T10:41:30.630Z"
+    },
+    {
+        attachments : [
+            {
+                public_id : "lasalgf",
+                url : "https://www.w3schools.com/howto/img_avatar.png"
+            },
+        ],
+        content : "Laude ka 2 Message hai",
+        _id : "laskfj asd",
+        sender : {
+            _id : "saidfasdfasdf",
+            name : "Harsh"
+        },
+        name : "chatId",
+        createdAt : "2024-02-12T10:41:30.630Z"
+    },
+];
+
+

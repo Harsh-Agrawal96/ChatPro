@@ -3,10 +3,14 @@ import { Menu } from '@mui/material'
 import React from 'react'
 
 
-const FileMenu = ({ anchor }) => {
+const FileMenu = ({ anchorE1 }) => {
   return (
-    <Menu open anchorEl={anchor} >
-        <div>
+    <Menu anchorEl={anchorE1} >
+        <div
+          style={{
+            width: "7rem",
+          }}
+        >
             Loratis molestias dolor!
         </div>
     </Menu>

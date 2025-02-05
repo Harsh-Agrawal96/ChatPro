@@ -1,22 +1,29 @@
 
-import React, { useRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { Container, IconButton, Paper, Stack } from '@mui/material';
 import AppLayout from "../components/layout/AppLayout";
 import { AttachFile as AttackFileIcon, Send as SendIcon } from "@mui/icons-material";
 import { grayColor,orange } from "../constants/Color";
 import { InputBox } from "../components/styles/StyledComponents";
 import FileMenu from "../components/dialogs/FileMenu.jsx";
+import { sampleMessages } from "../constants/sampleData.js";
+import MessageComponent from "../components/shared/MessageComponent.jsx";
 
+
+const user = {
+    _id : "saidfasdfasdf",
+    name : "Harsh"
+}
 
 const Chat = () => {
 
 
     const containerRef = useRef(null);
 
-    const fileMenuRef = useRef(null);
+    // const fileMenuRef = useRef(null);
   
     return (
-        <>
+        <Fragment>
 
             <Stack
                 ref={containerRef}
@@ -29,9 +36,12 @@ const Chat = () => {
                     overflowY: "auto"
                 }}
             >
-
+                {
+                    sampleMessages.map((i) => (
+                        <MessageComponent message={i} user={user} />
+                    ))
+                }
             </Stack>
-
             <form style={{
                 height: "10%",
             }}>
@@ -48,7 +58,7 @@ const Chat = () => {
                             left: "1rem",
                             rotate:"30deg"
                         }}
-                        ref={fileMenuRef}
+                        // ref={fileMenuRef}
                     >
                         <AttackFileIcon  />
                     </IconButton>
@@ -73,9 +83,9 @@ const Chat = () => {
                 </Stack>
             </form>
 
-            <FileMenu anchor={fileMenuRef.current} />
+            <FileMenu  />
 
-        </>
+        </Fragment>
     )
 
 }
