@@ -8,7 +8,7 @@ import {
   Stack, 
   TextField, 
   Typography 
-} from "@Mui/material";
+} from "@mui/material";
 import { useInputValidation } from "6pp";
 import { Search as SearchIcon } from "@mui/icons-material";
 import UserItem from '../shared/UserItem';

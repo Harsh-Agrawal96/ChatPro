@@ -7,7 +7,7 @@ import {
   Typography,
   Button,
   TextField
-} from "@Mui/material";
+} from "@mui/material";
 import { sampleUsers as users } from "../../constants/sampleData.js";
 import UserItem from '../shared/UserItem';
 import { useInputValidation } from "6pp";

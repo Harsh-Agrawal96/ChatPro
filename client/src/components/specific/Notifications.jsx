@@ -7,7 +7,7 @@ import {
   Stack,  
   Typography,
   Button
-} from "@Mui/material";
+} from "@mui/material";
 import { sampleNotification } from '../../constants/sampleData';
 
 

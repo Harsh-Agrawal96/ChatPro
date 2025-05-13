@@ -3,6 +3,7 @@ import React, { memo } from 'react'
 import { lightBlue } from '../../constants/Color';
 import moment from "moment"
 import { fileFormat } from '../../lib/features';
+import RenderAttachment from './RenderAttachment';
 
 const MessageComponent = ({ message, user }) => {
 
@@ -33,10 +34,15 @@ const MessageComponent = ({ message, user }) => {
                     const file = fileFormat(url);
 
                     return <Box key={index} >
-                        <a href='' target='_blank' download style={{
+                        <a
+                          href={url}
+                          target='_blank'
+                          download
+                          style={{
                             color : "black",
-
-                        }} ></a>
+                        }} >
+                            {RenderAttachment(file, url)}
+                        </a>
                     </Box>
                 })
             )
