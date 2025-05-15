@@ -7,16 +7,9 @@ import {
   login,
   getMyProfile,
   logout,
-  // searchUser,
+  searchUser,
   // sendFriendRequest,
 } from "../controllers/user.js";
-// import {
-//   // acceptRequestValidator,
-//   // loginValidator,
-//   // registerValidator,
-//   // sendRequestValidator,
-//   // validateHandler,
-// } from "../lib/validators.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 import { singleAvatar } from "../middlewares/multer.js";
 
@@ -34,7 +27,7 @@ app.use(isAuthenticated);
 app.get("/me", getMyProfile);
 app.get("/logout", logout);
 
-// app.get("/search", searchUser);
+app.get("/search", searchUser);
 
 // app.put(
 //   "/sendrequest",
