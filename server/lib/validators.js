@@ -1,4 +1,4 @@
-import { body, param, validationResult } from "express-validator";
+import { body, param, validationResult, check } from "express-validator";
 import { ErrorHandler } from "../utils/utility.js";
 
 
@@ -66,6 +66,22 @@ const renameValidator = () => [
   body("name", "Please Enter New Name").notEmpty(),
 ];
 
+const sendRequestValidator = () => [
+  body("userId", "Please Enter User ID").notEmpty(),
+];
+
+const acceptRequestValidator = () => [
+  body("requestId", "Please Enter Request ID").notEmpty(),
+  body("accept")
+    .notEmpty()
+    .withMessage("Please Add Accept")
+    .isBoolean()
+    .withMessage("Accept must be a boolean"),
+];
+
+const adminLoginValidator = () => [
+  body("secretKey", "Please Enter Secret Key").notEmpty(),
+];
 
 
 export {
@@ -78,4 +94,7 @@ export {
   renameValidator,
   sendAttachmentsValidator,
   validateHandler,
+  sendRequestValidator,
+  acceptRequestValidator,
+  adminLoginValidator,
 };

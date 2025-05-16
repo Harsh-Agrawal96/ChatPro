@@ -1,14 +1,14 @@
 import express from "express";
 import {
-  // acceptFriendRequest,
-  // getMyFriends,
-  // getMyNotifications,
   newUser,
   login,
   getMyProfile,
   logout,
   searchUser,
-  // sendFriendRequest,
+  sendFriendRequest,
+  acceptFriendRequest,
+  getMyNotifications,
+  getMyFriends,
 } from "../controllers/user.js";
 import {
   acceptRequestValidator,
@@ -36,23 +36,22 @@ app.get("/logout", logout);
 
 app.get("/search", searchUser);
 
-// app.put(
-//   "/sendrequest",
-//   sendRequestValidator(),
-//   validateHandler,
-//   sendFriendRequest
-// );
+app.put(
+  "/sendrequest",
+  sendRequestValidator(),
+  validateHandler,
+  sendFriendRequest
+);
+app.put(
+  "/acceptrequest",
+  acceptRequestValidator(),
+  validateHandler,
+  acceptFriendRequest
+);
 
-// app.put(
-//   "/acceptrequest",
-//   acceptRequestValidator(),
-//   validateHandler,
-//   acceptFriendRequest
-// );
+app.get("/notifications", getMyNotifications);
 
-// app.get("/notifications", getMyNotifications);
-
-// app.get("/friends", getMyFriends);
+app.get("/friends", getMyFriends);
 
 
 export default app;
