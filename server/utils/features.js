@@ -22,11 +22,8 @@ const connectDB = (uri) => {
 };
 
 const sendToken = (res, user, code, message) => {
-  console.log("come 12")
-  console.log(process.env.JWT_SECRET);
-  console.log("come 23")
+
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-  console.log(token)
 
   return res.status(code).cookie("ChatPro-token", token, cookieOptions).json({
     success: true,
