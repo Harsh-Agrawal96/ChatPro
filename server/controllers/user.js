@@ -9,7 +9,7 @@ import {
   cookieOptions,
   emitEvent,
   sendToken,
-  // uploadFilesToCloudinary,
+  uploadFilesToCloudinary,
 } from "../utils/features.js";
 import { ErrorHandler } from "../utils/utility.js";
 
@@ -23,15 +23,11 @@ const newUser = TryCatch(async (req, res, next) => {
 
   if (!file) return next(new ErrorHandler("Please Upload Avatar"));
 
-  // const result = await uploadFilesToCloudinary([file]);
+  const result = await uploadFilesToCloudinary([file]);
 
-  // const avatar = {
-  //   public_id: result[0].public_id,
-  //   url: result[0].url,
-  // };
   const avatar = {
-    public_id: "askdjfas",
-    url: "askdfn",
+    public_id: result[0].public_id,
+    url: result[0].url,
   };
   const user = await User.create({
     name,
@@ -64,9 +60,14 @@ const login = TryCatch(async (req, res, next) => {
 
 const getMyProfile = TryCatch(async (req, res, next) => {
 
+  console.log("here we comes 1")
+
   const user = await User.findById(req.user);
+  console.log(user)
+  console.log("we got this")
 
   if (!user) return next(new ErrorHandler("User not found", 404));
+  console.log("is reached here")
 
   res.status(200).json({
     success: true,

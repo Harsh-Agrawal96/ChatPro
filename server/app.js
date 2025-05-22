@@ -14,8 +14,11 @@ import {
   STOP_TYPING,
 } from "./constants/events.js";
 import { Message } from "./models/message.js";
+import { corsOptions } from "./constants/config.js";
+import { v2 as cloudinary } from "cloudinary";
 
 import {v4 as uuid} from "uuid";
+import cors from "cors";
 import { getSockets } from "./lib/helper.js";
 
 import userRoute from "./routes/user.js";
@@ -36,6 +39,11 @@ const envMode = process.env.NODE_ENV || "PRODUCTION";
 console.log(mongoURI)
 
 connectDB(mongoURI);
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const adminSecretKey = process.env.ADMIN_SECRET_KEY || "adsasdsdfsdfsdfd";
 const userSocketIDs = new Map();
@@ -46,6 +54,7 @@ const io = new Server(server);
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors(corsOptions));
 
 app.use("/user", userRoute);
 app.use("/chat", chatRoute);

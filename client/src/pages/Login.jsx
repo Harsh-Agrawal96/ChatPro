@@ -1,7 +1,13 @@
 
 import React, { useState } from 'react';
+import toast from "react-hot-toast";
 import { Container, Paper, Typography, TextField, Button, Stack, Avatar, IconButton } from '@mui/material';
 import { CameraAlt } from "@mui/icons-material"
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { server } from "../constants/config";
+import { userExists } from "../redux/reducers/auth";
+import { bgGradient } from "../constants/color.js";
 import { VisuallyHiddenInput } from "../components/styles/StyledComponents.jsx"
 import { useInputValidation, useFileHandler } from "6pp";
 import { usernameValidator } from '../utils/validator.js';
@@ -9,25 +15,102 @@ import { usernameValidator } from '../utils/validator.js';
 
 const Login = () => {
 
-
     const [isLogin,setIsLogin] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const toggleLogin = () => setIsLogin((prev) => !prev);
 
     const name = useInputValidation("");
     const bio = useInputValidation("");
     const password = useInputValidation("");
     const username = useInputValidation("", usernameValidator );
 
-    const avatar = useFileHandler("single",2);
+    const avatar = useFileHandler("single");
 
-    const handleLogin = (e) => {
+    const dispatch = useDispatch();
+
+    const handleLogin = async (e) => {
         e.preventDefault();
+
+    const toastId = toast.loading("Logging In...");
+
+    setIsLoading(true);
+    const config = {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        `${server}/user/login`,
+        {
+          username: username.value,
+          password: password.value,
+        },
+        config
+      );
+      dispatch(userExists(true));
+      toast.success(data.message, {
+        id: toastId,
+      });
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something Went Wrong", {
+        id: toastId,
+      });
+    } finally {
+      setIsLoading(false);
+    }
     }
     
-    const handleSignUp = (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
+
+        const toastId = toast.loading("Signing Up...");
+        setIsLoading(true);
+
+        const formData = new FormData();
+        formData.append("avatar", avatar.file);
+        formData.append("name", name.value);
+        formData.append("bio", bio.value);
+        formData.append("username", username.value);
+        formData.append("password", password.value);
+
+        const config = {
+        withCredentials: true,
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        };
+
+        try {
+        const { data } = await axios.post(
+            `${server}/user/new`,
+            formData,
+            config
+        );
+
+        dispatch(userExists(true));
+        toast.success(data.message, {
+            id: toastId,
+        });
+        } catch (error) {
+        toast.error(error?.response?.data?.message || "Something Went Wrong", {
+            id: toastId,
+        });
+        } finally {
+        setIsLoading(false);
+        }
     }
 
-    return <Container 
+    return(
+        <div
+          style={{
+            backgroundImage: bgGradient,
+          }}
+        >
+    <Container 
                 component={"main"} 
                 maxWidth="xs" 
                 sx={{
@@ -229,9 +312,8 @@ const Login = () => {
         </Paper>
 
     </Container>
-        
-    
-
+    </div>
+    )
 };
 
 export default Login;
