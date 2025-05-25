@@ -6,40 +6,59 @@ import {
   Avatar,
   Stack,  
   Typography,
-  Button
+  Button,
+  Skeleton
 } from "@mui/material";
-import { sampleNotification } from '../../constants/sampleData';
+import { useDispatch, useSelector } from "react-redux";
+import { useAsyncMutation, useErrors } from "../../hooks/hook";
+import {
+  useAcceptFriendRequestMutation,
+  useGetNotificationsQuery,
+} from "../../redux/api/api";
+import { setIsNotification } from "../../redux/reducers/misc";
 
 
 const Notifications = () => {
+  const { isNotification } = useSelector((state) => state.misc);
+  const dispatch = useDispatch();
 
+  const { isLoading, data, error, isError } = useGetNotificationsQuery();
 
-  const friendRequestHandler = ({ _id,accept }) => {
-    console.log(_id);
-  }
+  const [acceptRequest] = useAsyncMutation(useAcceptFriendRequestMutation);
+
+  const friendRequestHandler = async ({ _id, accept }) => {
+    dispatch(setIsNotification(false));
+    await acceptRequest("Accepting...", { requestId: _id, accept });
+  };
+
+  const closeHandler = () => dispatch(setIsNotification(false));
+
+  useErrors([{ error, isError }]);
 
   return (
-    <Dialog open >
+    <Dialog open={isNotification} onClose={closeHandler} >
       <Stack p={{ xs: "0.5rem", sm: "1rem" }} maxWidth={"20rem"} >
 
         <DialogTitle> Notifications</DialogTitle>
 
-        {
-          sampleNotification.length > 0 
-          ?
-            (
-              sampleNotification.map( (i) => 
-                <NotificationsItems 
-                  sender={i.sender} 
-                  _id={i._id} 
-                  handler={friendRequestHandler} 
-                  key={i._id} 
-                /> 
-              )
-            )
-          : 
-            <Typography textAlign={"center"} >No Notifications</Typography>
-        }
+        {isLoading ? (
+          <Skeleton />
+        ) : (
+          <>
+            {data?.allRequests.length > 0 ? (
+              data?.allRequests?.map(({ sender, _id }) => (
+                <NotificationItem
+                  sender={sender}
+                  _id={_id}
+                  handler={friendRequestHandler}
+                  key={_id}
+                />
+              ))
+            ) : (
+              <Typography textAlign={"center"}>0 notifications</Typography>
+            )}
+          </>
+        )}
 
       </Stack>
     </Dialog>

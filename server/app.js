@@ -16,6 +16,7 @@ import {
 import { Message } from "./models/message.js";
 import { corsOptions } from "./constants/config.js";
 import { v2 as cloudinary } from "cloudinary";
+import { socketAuthenticator } from "./middlewares/auth.js";
 
 import {v4 as uuid} from "uuid";
 import cors from "cors";
@@ -66,14 +67,15 @@ app.get("/", (req,res) => {
     )
 })
 
+io.use((socket, next) => {
+  cookieParser()( socket.request, socket.request.res, async (err) => 
+    await socketAuthenticator(err, socket, next)
+  );
+});
+
 
 io.on("connection", (socket) => {
-
-    console.log("a user conneted", socket.id);
-    const user = {
-        _id : "isodflks",
-        name : "what is happening"
-    }
+    const user = socket.user;
     userSocketIDs.set(user._id.toString(), socket.id);
 
     socket.on(NEW_MESSAGE, async ({ chatId, members, message }) => {

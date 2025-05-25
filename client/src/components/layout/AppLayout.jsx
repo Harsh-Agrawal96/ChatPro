@@ -18,6 +18,7 @@ import {
   setIsMobile,
   setSelectedDeleteChat,
 } from "../../redux/reducers/misc";
+import { getSocket } from "../../socket";
 
 
 const AppLayout = () => ( WrappedComponent ) => {
@@ -26,6 +27,8 @@ const AppLayout = () => ( WrappedComponent ) => {
         const params = useParams();
         const navigate = useNavigate();
         const dispatch = useDispatch();
+
+        const socket = getSocket();
 
         const  chatId = params.chatId;
 
@@ -86,7 +89,7 @@ const AppLayout = () => ( WrappedComponent ) => {
                     </Grid2>
 
                     <Grid2 item height={"100%"} size={{ xs:12, sm: 8, md: 6, lg:6 }} >
-                        <WrappedComponent {...props} />
+                        <WrappedComponent {...props} chatId={chatId} user={user} />
                     </Grid2>
                     
                     <Grid2 

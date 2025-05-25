@@ -34,6 +34,7 @@ import {
 const SearchDialog = lazy( () => import("../specific/Search.jsx") );
 const NotificationDialog = lazy( () => import("../specific/Notifications.jsx") );
 const NewGroupDialog = lazy( () => import("../specific/NewGroup.jsx") );
+// import { resetNotificationCount } from "../../redux/reducers/chat";
 
 
 const Header = () => {
@@ -43,7 +44,7 @@ const Header = () => {
    const { isSearch, isNotification, isNewGroup } = useSelector(
     (state) => state.misc
   );
-
+  // const { notificationCount } = useSelector((state) => state.chat);
 
   const handleMobile = () => dispatch(setIsMobile(true));
 
@@ -52,8 +53,9 @@ const Header = () => {
   const openNewGroup = () => dispatch(setIsNewGroup(true));
 
   const openNotification = () => {
-    setIsNotification( prev => !prev );
-  }
+    dispatch(setIsNotification(true));
+    // dispatch(resetNotificationCount());
+  };
   
   const navigateToGroup = () => navigate("/groups");
 
