@@ -51,7 +51,11 @@ const userSocketIDs = new Map();
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: corsOptions,
+});
+
+app.set("io", io);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -79,7 +83,7 @@ io.on("connection", (socket) => {
     userSocketIDs.set(user._id.toString(), socket.id);
 
     socket.on(NEW_MESSAGE, async ({ chatId, members, message }) => {
-        const messageForRealTime = {
+      const messageForRealTime = {
         content: message,
         _id: uuid(),
         sender: {
@@ -88,34 +92,44 @@ io.on("connection", (socket) => {
         },
         chat: chatId,
         createdAt: new Date().toISOString(),
-        };
+      };
 
-        const messageForDB = {
+      const messageForDB = {
         content: message,
         sender: user._id,
         chat: chatId,
-        };
+      };
 
-        const membersSocket = getSockets(members);
-        io.to(membersSocket).emit(
-            NEW_MESSAGE,
-            {
-              chatId,
-              message: messageForRealTime,
-            }
-        );
-        io.to(membersSocket).emit(NEW_MESSAGE_ALERT, { chatId });
-
-        try {
-        await Message.create(messageForDB);
-        } catch (error) {
-        throw new Error(error);
+      const membersSocket = getSockets(members);
+      io.to(membersSocket).emit(
+        NEW_MESSAGE,
+        {
+          chatId,
+          message: messageForRealTime,
         }
+      );
+      io.to(membersSocket).emit(NEW_MESSAGE_ALERT, { chatId });
+
+      try {
+        await Message.create(messageForDB);
+      } catch (error) {
+        throw new Error(error);
+      }
+    });
+
+  socket.on(START_TYPING, ({ members, chatId }) => {
+    const membersSockets = getSockets(members);
+    socket.to(membersSockets).emit(START_TYPING, { chatId });
   });
 
-    socket.on("disconnect", () => {
-        console.log("user disconnected");
-    });
+  socket.on(STOP_TYPING, ({ members, chatId }) => {
+    const membersSockets = getSockets(members);
+    socket.to(membersSockets).emit(STOP_TYPING, { chatId });
+  });
+
+  socket.on("disconnect", () => {
+    userSocketIDs.delete(user._id.toString());
+  });
 });
 
 
