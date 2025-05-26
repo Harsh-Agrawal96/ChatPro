@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import { 
   Dialog, 
@@ -8,44 +7,67 @@ import {
   Button,
   TextField
 } from "@mui/material";
-import { sampleUsers as users } from "../../constants/sampleData.js";
 import UserItem from '../shared/UserItem';
 import { useInputValidation } from "6pp";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  useAvailableFriendsQuery,
+  useNewGroupMutation,
+} from "../../redux/api/api";
+import { useAsyncMutation, useErrors } from "../../hooks/hook";
+import { setIsNewGroup } from "../../redux/reducers/misc";
+import toast from "react-hot-toast";
 
 
 const NewGroup = () => {
+  const { isNewGroup } = useSelector((state) => state.misc);
+  const dispatch = useDispatch();
 
+  const { isError, isLoading, error, data } = useAvailableFriendsQuery();
+  const [newGroup, isLoadingNewGroup] = useAsyncMutation(useNewGroupMutation);
 
-  const [ members,setMembers ] = useState( users );
-  const [ selectedMembers,setSelectedMembers ] = useState([]);
+  const [ selectedMembers, setSelectedMembers ] = useState([]);
+  const groupName = useInputValidation("");
+
+  const errors = [
+    {
+      isError,
+      error,
+    },
+  ];
+
+  useErrors(errors);
 
 
   const  selectMemberHandler = (id) => {
-
-    // setMembers( (prev) => 
-    //   prev.map( user => 
-    //     user._id === id 
-    //       ? { ...user, isAdded : !user.isAdded }
-    //       : user
-    //   ) 
-    // );
-
     setSelectedMembers( (prev) => 
-      ( prev.includes(id) 
-      ? prev.filter( (currentid) => currentid !== id ) 
-      : [...prev,id] ) 
+      prev.includes(id) 
+        ? prev.filter( (currentid) => currentid !== id ) 
+        : [...prev,id]
     );
   };
   console.log(selectedMembers);
 
-  const groupName = useInputValidation("");
-  const submitHandler = () => {};
+  const submitHandler = () => {
+    if (!groupName.value) return toast.error("Group name is required");
 
-  const closeHandler = () => {};
+    if (selectedMembers.length < 2)
+      return toast.error("Please Select Atleast 3 Members");
 
+    newGroup("Creating New Group...", {
+      name: groupName.value,
+      members: selectedMembers,
+    });
+
+    closeHandler();
+  };
+  
+  const closeHandler = () => {
+    dispatch(setIsNewGroup(false));
+  };
 
   return (
-    <Dialog open onClose={closeHandler} >
+    <Dialog onClose={closeHandler} open={isNewGroup} >
       <Stack p={{ xs: "0.5rem", sm: "2rem" }} spacing={"1.5rem"} width={"20rem"} >
 
         <DialogTitle textAlign={"center"} variant='h5' > New Group</DialogTitle>
@@ -55,19 +77,22 @@ const NewGroup = () => {
         <Typography variant="body1" >Members</Typography>
 
         <Stack>
-          {members.map( (i) => (
-            <UserItem
-              user={i}
-              key={i._id} 
-              handler={selectMemberHandler}
-              isAdded={selectedMembers.includes(i._id)}
-            />
-          ))}
+          {isLoading ? (
+            <Skeleton />
+            ) : (data?.friends?.map( (i) => (
+              <UserItem
+                user={i}
+                key={i._id} 
+                handler={selectMemberHandler}
+                isAdded={selectedMembers.includes(i._id)}
+              />
+            ))
+          )}
         </Stack>
 
         <Stack direction={"row"} justifyContent={"space-evenly"} >
-          <Button variant='text' color='error' >Cancle</Button>
-          <Button variant='contained' onClick={submitHandler} >Create</Button>
+          <Button variant='text' color='error' onClick={closeHandler} >Cancle</Button>
+          <Button variant='contained' onClick={submitHandler} disabled={isLoadingNewGroup} >Create</Button>
         </Stack>
 
       </Stack>

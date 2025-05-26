@@ -103,6 +103,10 @@ const Chat = ({ chatId, user }) => {
     }, [messages]);
 
     useEffect(() => {
+        if (chatDetails.isError) return navigate("/");
+    }, [chatDetails.isError]);
+
+    useEffect(() => {
         socket.emit(CHAT_JOINED, { userId: user._id, members });
         dispatch(removeNewMessagesAlert(chatId));
 

@@ -19,9 +19,7 @@ import Profile from '../specific/Profile.jsx';
 import { useMyChatsQuery } from "../../redux/api/api";
 import { useErrors, useSocketEvents } from "../../hooks/hook";
 import {
-  setIsDeleteMenu,
   setIsMobile,
-  setSelectedDeleteChat,
 } from "../../redux/reducers/misc";
 import {
   incrementNotification,
@@ -73,10 +71,10 @@ const AppLayout = () => ( WrappedComponent ) => {
             dispatch(incrementNotification());
         }, [dispatch]);
 
-        // const refetchListener = useCallback(() => {
-        //     refetch();
-        //     navigate("/");
-        // }, [refetch, navigate]);
+        const refetchListener = useCallback(() => {
+            refetch();
+            navigate("/");
+        }, [refetch, navigate]);
 
         // const onlineUsersListener = useCallback((data) => {
         //     setOnlineUsers(data);
@@ -85,7 +83,7 @@ const AppLayout = () => ( WrappedComponent ) => {
         const eventHandlers = {
             [NEW_MESSAGE_ALERT]: newMessageAlertListener,
             [NEW_REQUEST]: newRequestListener,
-            // [REFETCH_CHATS]: refetchListener,
+            [REFETCH_CHATS]: refetchListener,
             // [ONLINE_USERS]: onlineUsersListener,
         };
 

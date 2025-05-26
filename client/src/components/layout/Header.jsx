@@ -111,7 +111,7 @@ const Header = () => {
 
             <IconBtn title={"Manage Group"} icon={<GroupIcon />} onClick={navigateToGroup} />
 
-            <IconBtn title={"Notifications"} icon={<NotificationIcon />} onClick={openNotification} />
+            <IconBtn title={"Notifications"} icon={<NotificationIcon />} onClick={openNotification} value={notificationCount} />
 
             <IconBtn title={"Logout"} icon={<LogoutIcon />} onClick={logoutHandler} />
 
