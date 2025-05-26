@@ -27,6 +27,7 @@ import {
 } from "../../redux/reducers/chat";
 import { getSocket } from "../../socket";
 import { getOrSaveFromStorage } from "../../lib/features";
+import DeleteChatMenu from "../dialogs/DeleteChatMenu";
 
 
 const AppLayout = () => ( WrappedComponent ) => {
@@ -40,6 +41,8 @@ const AppLayout = () => ( WrappedComponent ) => {
 
         const  chatId = params.chatId;
 
+        const deleteMenuAnchor = useRef(null);
+
         const { isMobile } = useSelector((state) => state.misc);
         const { user } = useSelector((state) => state.auth);
         const { newMessagesAlert } = useSelector((state) => state.chat);
@@ -52,10 +55,11 @@ const AppLayout = () => ( WrappedComponent ) => {
             getOrSaveFromStorage({ key: NEW_MESSAGE_ALERT, value: newMessagesAlert });
         }, [newMessagesAlert]);
 
-        const handleDeleteChat = ( e, _id, groupChat ) => {
-            e.preventDefault();
-            console.log( " see that it is cliked or not ");
-        }
+        const handleDeleteChat = (e, chatId, groupChat) => {
+        dispatch(setIsDeleteMenu(true));
+        dispatch(setSelectedDeleteChat({ chatId, groupChat }));
+        deleteMenuAnchor.current = e.currentTarget;
+        };
 
         const handleMobileClose = () => dispatch(setIsMobile(false));
 
@@ -93,6 +97,11 @@ const AppLayout = () => ( WrappedComponent ) => {
             <>
                 <Title />
                 <Header />
+
+                <DeleteChatMenu
+                    dispatch={dispatch}
+                    deleteMenuAnchor={deleteMenuAnchor}
+                />
 
                 {isLoading ? (
                     <Skeleton />
