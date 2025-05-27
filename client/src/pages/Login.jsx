@@ -169,7 +169,8 @@ const Login = () => {
                             variant='contained' 
                             color='primary' 
                             type='submit'
-                            fullWidth 
+                            fullWidth
+                            disabled={isLoading}
                         > Login </Button>
 
                         <Typography textAlign={"center"} sx={{ marginTop: "1rem" }} > OR </Typography>
@@ -182,6 +183,7 @@ const Login = () => {
                             variant='text' 
                             color="info"
                             onClick={ () => setIsLogin( (prev) => !prev ) }
+                            disabled={isLoading}
                         > Sign Up Instead </Button>
 
                     </form>
@@ -290,7 +292,8 @@ const Login = () => {
                             variant='contained' 
                             color='primary' 
                             type='submit'
-                            fullWidth 
+                            fullWidth
+                            disabled={isLoading}
                         > Sign Up </Button>
 
                         <Typography textAlign={"center"} sx={{ marginTop: "1rem" }} > OR </Typography>
@@ -303,6 +306,7 @@ const Login = () => {
                             variant='text' 
                             color="info"
                             onClick={ () => setIsLogin( (prev) => !prev ) }
+                            disabled={isLoading}
                         > Login Instead </Button>
 
                     </form>
