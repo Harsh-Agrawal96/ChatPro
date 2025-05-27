@@ -43,6 +43,8 @@ const AppLayout = () => ( WrappedComponent ) => {
 
         const deleteMenuAnchor = useRef(null);
 
+        const [onlineUsers, setOnlineUsers] = useState([]);
+
         const { isMobile } = useSelector((state) => state.misc);
         const { user } = useSelector((state) => state.auth);
         const { newMessagesAlert } = useSelector((state) => state.chat);
@@ -80,15 +82,15 @@ const AppLayout = () => ( WrappedComponent ) => {
             navigate("/");
         }, [refetch, navigate]);
 
-        // const onlineUsersListener = useCallback((data) => {
-        //     setOnlineUsers(data);
-        // }, []);
+        const onlineUsersListener = useCallback((data) => {
+            setOnlineUsers(data);
+        }, []);
 
         const eventHandlers = {
             [NEW_MESSAGE_ALERT]: newMessageAlertListener,
             [NEW_REQUEST]: newRequestListener,
             [REFETCH_CHATS]: refetchListener,
-            // [ONLINE_USERS]: onlineUsersListener,
+            [ONLINE_USERS]: onlineUsersListener,
         };
 
         useSocketEvents(socket, eventHandlers);
@@ -113,7 +115,7 @@ const AppLayout = () => ( WrappedComponent ) => {
                         chatId={chatId}
                         handleDeleteChat={handleDeleteChat}
                         newMessagesAlert={newMessagesAlert}
-                        // onlineUsers={onlineUsers}
+                        onlineUsers={onlineUsers}
                         />
                     </Drawer>
                     )}
@@ -135,7 +137,7 @@ const AppLayout = () => ( WrappedComponent ) => {
                                 chatId={chatId}
                                 handleDeleteChat={handleDeleteChat}
                                 newMessagesAlert={newMessagesAlert}
-                                // onlineUsers={onlineUsers}
+                                onlineUsers={onlineUsers}
                             />
                             )}
                     </Grid2>

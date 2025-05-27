@@ -33,11 +33,14 @@ dotenv.config({
     path: "./.env",
 });
 
+
 const mongoURI = process.env.MONGODB_URI;
 const Port = process.env.PORT || 3500;
 const envMode = process.env.NODE_ENV || "PRODUCTION";
+const adminSecretKey = process.env.ADMIN_SECRET_KEY || "adsasdsdfsdfsdfd";
+const userSocketIDs = new Map();
+const onlineUsers = new Set();
 
-console.log(mongoURI)
 
 connectDB(mongoURI);
 cloudinary.config({
@@ -46,8 +49,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const adminSecretKey = process.env.ADMIN_SECRET_KEY || "adsasdsdfsdfsdfd";
-const userSocketIDs = new Map();
 
 const app = express();
 const server = createServer(app);
@@ -66,9 +67,7 @@ app.use("/chat", chatRoute);
 app.use("/admin", adminRoute);
 
 app.get("/", (req,res) => {
-    res.send(
-    "hello here"
-    )
+    res.send("hello heren")
 })
 
 io.use((socket, next) => {
@@ -127,17 +126,38 @@ io.on("connection", (socket) => {
     socket.to(membersSockets).emit(STOP_TYPING, { chatId });
   });
 
+  socket.on(CHAT_JOINED, ({ userId, members }) => {
+    onlineUsers.add(userId.toString());
+
+    const membersSocket = getSockets(members);
+    io.to(membersSocket).emit(ONLINE_USERS, Array.from(onlineUsers));
+  });
+
+  socket.on(CHAT_LEAVED, ({ userId, members }) => {
+    onlineUsers.delete(userId.toString());
+
+    const membersSocket = getSockets(members);
+    io.to(membersSocket).emit(ONLINE_USERS, Array.from(onlineUsers));
+  });
+
   socket.on("disconnect", () => {
     userSocketIDs.delete(user._id.toString());
+    onlineUsers.delete(user._id.toString());
+    socket.broadcast.emit(ONLINE_USERS, Array.from(onlineUsers));
   });
 });
 
 
 app.use(errorMiddleware);
 
+
 server.listen( Port, () => {
     console.log(`Server is runing at ${Port} port in ${envMode}`);
 })
 
 
-export { envMode, adminSecretKey, userSocketIDs };
+export { 
+  envMode,
+  adminSecretKey,
+  userSocketIDs
+};
