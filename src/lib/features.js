@@ -1,19 +1,31 @@
 import moment from "moment";
 
+const fileFormat = (url = "") => {
+  const fileExt = url.split(".").pop();
 
-const fileFormat = (url="") => {
+  if (fileExt === "mp4" || fileExt === "webm" || fileExt === "ogg")
+    return "video";
 
-    const fileExtention = url.split(".").pop();
+  if (fileExt === "mp3" || fileExt === "wav") return "audio";
+  if (
+    fileExt === "png" ||
+    fileExt === "jpg" ||
+    fileExt === "jpeg" ||
+    fileExt === "gif"
+  )
+    return "image";
 
-    if( fileExtention === 'mp4' || fileExtention === 'webm' || fileExtention === 'ogg' )  return "vedio";
-    if( fileExtention === 'mp3' || fileExtention === 'wav' )  return "audio";
-    if( fileExtention === 'png' || fileExtention === 'jpg' || fileExtention === 'jpeg' || fileExtention === 'gif' )  return "image";
-
-    return "file";
-
+  return "file";
 };
 
-const transformImage = (url = "", width = 100) => url;
+// https://res.cloudinary.com/dj5q966nb/image/upload/dpr_auto/w_200/v1710344436/fafceddc-2845-4ae7-a25a-632f01922b4d.png
+
+// /dpr_auto/w_200
+const transformImage = (url = "", width = 100) => {
+  const newUrl = url.replace("upload/", `upload/dpr_auto/w_${width}/`);
+
+  return newUrl;
+};
 
 const getLast7Days = () => {
   const currentDate = moment();
@@ -38,10 +50,4 @@ const getOrSaveFromStorage = ({ key, value, get }) => {
   else localStorage.setItem(key, JSON.stringify(value));
 };
 
-
-export { 
-  fileFormat,
-  transformImage, 
-  getLast7Days,
-  getOrSaveFromStorage
-};
+export { fileFormat, transformImage, getLast7Days, getOrSaveFromStorage };

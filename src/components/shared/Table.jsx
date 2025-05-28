@@ -49,8 +49,7 @@ const Table = ({ rows, columns, heading, rowHeight = 52 }) => {
         />
       </Paper>
     </Container>
-  )
+  );
 };
-
 
 export default Table;

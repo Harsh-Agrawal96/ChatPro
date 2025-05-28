@@ -1,19 +1,16 @@
-import React from 'react'
-import AppLayout from '../components/layout/AppLayout';
-import { Typography, Box } from "@mui/material";
-import { grayColor } from '../constants/Color';
-
+import React from "react";
+import AppLayout from "../components/layout/AppLayout";
+import { Box, Typography } from "@mui/material";
+import { grayColor } from "../constants/color";
 
 const Home = () => {
-
-    return (
-        <>
-            <Box height={"100%"} bgcolor={grayColor} >
-                <Typography p={"1.5rem"} variant='h6' textAlign={"center"} >Select Chat and send/receive messages</Typography>
-            </Box>
-        </>
-    )
-}
-
+  return (
+    <Box bgcolor={grayColor} height={"100%"}>
+      <Typography p={"2rem"} variant="h5" textAlign={"center"}>
+        Select a friend to chat
+      </Typography>
+    </Box>
+  );
+};
 
 export default AppLayout()(Home);

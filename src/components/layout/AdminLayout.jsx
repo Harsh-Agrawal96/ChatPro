@@ -10,7 +10,7 @@ import {
 import {
   Box,
   Drawer,
-  Grid2,
+  Grid,
   IconButton,
   Stack,
   Typography,
@@ -21,7 +21,6 @@ import { Link as LinkComponent, Navigate, useLocation } from "react-router-dom";
 import { grayColor, matBlack } from "../../constants/color";
 import { useDispatch, useSelector } from "react-redux";
 import { adminLogout } from "../../redux/thunks/admin";
-
 
 const Link = styled(LinkComponent)`
   text-decoration: none;
@@ -55,7 +54,6 @@ const adminTabs = [
     icon: <MessageIcon />,
   },
 ];
-
 
 const Sidebar = ({ w = "100%" }) => {
   const location = useLocation();
@@ -104,9 +102,7 @@ const Sidebar = ({ w = "100%" }) => {
   );
 };
 
-
 const AdminLayout = ({ children }) => {
-
   const { isAdmin } = useSelector((state) => state.auth);
 
   const [isMobile, setIsMobile] = useState(false);
@@ -118,7 +114,7 @@ const AdminLayout = ({ children }) => {
   if (!isAdmin) return <Navigate to="/admin" />;
 
   return (
-    <Grid2 container minHeight={"100vh"}>
+    <Grid container minHeight={"100vh"}>
       <Box
         sx={{
           display: { xs: "block", md: "none" },
@@ -132,26 +128,27 @@ const AdminLayout = ({ children }) => {
         </IconButton>
       </Box>
 
-      <Grid2 item size={{ md: 4, lg: 3 }} sx={{ display: { xs: "none", md: "block" } }}>
+      <Grid item md={4} lg={3} sx={{ display: { xs: "none", md: "block" } }}>
         <Sidebar />
-      </Grid2>
+      </Grid>
 
-      <Grid2
+      <Grid
         item
-        size={{xs: 12, md: 8, lg: 9 }}
+        xs={12}
+        md={8}
+        lg={9}
         sx={{
           bgcolor: grayColor,
         }}
       >
         {children}
-      </Grid2>
+      </Grid>
 
       <Drawer open={isMobile} onClose={handleClose}>
         <Sidebar w="50vw" />
       </Drawer>
-    </Grid2>
+    </Grid>
   );
 };
-
 
 export default AdminLayout;

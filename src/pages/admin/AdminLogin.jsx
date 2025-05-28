@@ -12,11 +12,11 @@ import { Navigate } from "react-router-dom";
 import { bgGradient } from "../../constants/color";
 import { adminLogin, getAdmin } from "../../redux/thunks/admin";
 
-
 const AdminLogin = () => {
   const { isAdmin } = useSelector((state) => state.auth);
-  
+
   const dispatch = useDispatch();
+
   const secretKey = useInputValidation("");
 
   const submitHandler = (e) => {
@@ -27,7 +27,6 @@ const AdminLogin = () => {
   useEffect(() => {
     dispatch(getAdmin());
   }, [dispatch]);
-
 
   if (isAdmin) return <Navigate to="/admin/dashboard" />;
 
@@ -92,6 +91,5 @@ const AdminLogin = () => {
     </div>
   );
 };
-
 
 export default AdminLogin;

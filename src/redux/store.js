@@ -4,7 +4,6 @@ import api from "./api/api";
 import miscSlice from "./reducers/misc";
 import chatSlice from "./reducers/chat";
 
-
 const store = configureStore({
   reducer: {
     [authSlice.name]: authSlice.reducer,
@@ -14,6 +13,5 @@ const store = configureStore({
   },
   middleware: (mid) => [...mid(), api.middleware],
 });
-
 
 export default store;

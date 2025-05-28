@@ -13,15 +13,20 @@ import {
   useLeaveGroupMutation,
 } from "../../redux/api/api";
 
-
 const DeleteChatMenu = ({ dispatch, deleteMenuAnchor }) => {
   const navigate = useNavigate();
 
-  const { isDeleteMenu, selectedDeleteChat } = useSelector( (state) => state.misc );
+  const { isDeleteMenu, selectedDeleteChat } = useSelector(
+    (state) => state.misc
+  );
 
-  const [deleteChat, _, deleteChatData] = useAsyncMutation(useDeleteChatMutation);
+  const [deleteChat, _, deleteChatData] = useAsyncMutation(
+    useDeleteChatMutation
+  );
 
-  const [leaveGroup, __, leaveGroupData] = useAsyncMutation(useLeaveGroupMutation);
+  const [leaveGroup, __, leaveGroupData] = useAsyncMutation(
+    useLeaveGroupMutation
+  );
 
   const isGroup = selectedDeleteChat.groupChat;
 
@@ -84,6 +89,5 @@ const DeleteChatMenu = ({ dispatch, deleteMenuAnchor }) => {
     </Menu>
   );
 };
-
 
 export default DeleteChatMenu;

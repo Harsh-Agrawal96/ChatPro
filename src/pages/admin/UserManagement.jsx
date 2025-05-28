@@ -7,7 +7,6 @@ import { server } from "../../constants/config";
 import { useErrors } from "../../hooks/hook";
 import { transformImage } from "../../lib/features";
 
-
 const columns = [
   {
     field: "id",
@@ -50,7 +49,6 @@ const columns = [
     width: 200,
   },
 ];
-
 const UserManagement = () => {
   const { loading, data, error } = useFetchData(
     `${server}/admin/users`,
@@ -88,6 +86,5 @@ const UserManagement = () => {
     </AdminLayout>
   );
 };
-
 
 export default UserManagement;

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-
 const useErrors = (errors = []) => {
   useEffect(() => {
     errors.forEach(({ isError, error, fallback }) => {
@@ -61,9 +60,4 @@ const useSocketEvents = (socket, handlers) => {
   }, [socket, handlers]);
 };
 
-
-export {
-  useErrors,
-  useAsyncMutation,
-  useSocketEvents,
-};
+export { useErrors, useAsyncMutation, useSocketEvents };

@@ -159,8 +159,7 @@ const api = createApi({
       }),
       invalidatesTags: ["Chat"],
     }),
-
-  }), 
+  }),
 });
 
 export default api;

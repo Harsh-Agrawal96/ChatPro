@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { adminLogin, adminLogout, getAdmin } from "../thunks/admin";
 import toast from "react-hot-toast";
 
-
 const initialState = {
   user: null,
   isAdmin: false,
@@ -12,7 +11,6 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-
   reducers: {
     userExists: (state, action) => {
       state.user = action.payload;
@@ -54,7 +52,6 @@ const authSlice = createSlice({
       });
   },
 });
-
 
 export default authSlice;
 export const { userExists, userNotExists } = authSlice.actions;
