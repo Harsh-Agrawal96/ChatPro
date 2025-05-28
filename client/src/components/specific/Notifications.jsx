@@ -47,7 +47,7 @@ const Notifications = () => {
           <>
             {data?.allRequests.length > 0 ? (
               data?.allRequests?.map(({ sender, _id }) => (
-                <NotificationItem
+                <NotificationsItems
                   sender={sender}
                   _id={_id}
                   handler={friendRequestHandler}

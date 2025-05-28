@@ -5,7 +5,8 @@ import {
   Stack,  
   Typography,
   Button,
-  TextField
+  TextField,
+  Skeleton
 } from "@mui/material";
 import UserItem from '../shared/UserItem';
 import { useInputValidation } from "6pp";
@@ -46,7 +47,6 @@ const NewGroup = () => {
         : [...prev,id]
     );
   };
-  console.log(selectedMembers);
 
   const submitHandler = () => {
     if (!groupName.value) return toast.error("Group name is required");

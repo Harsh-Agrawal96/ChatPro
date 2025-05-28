@@ -6,8 +6,7 @@ import {
   InputAdornment, 
   List, 
   Stack, 
-  TextField, 
-  Typography 
+  TextField,
 } from "@mui/material";
 import { useInputValidation } from "6pp";
 import { Search as SearchIcon } from "@mui/icons-material";

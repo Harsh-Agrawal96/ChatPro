@@ -1,5 +1,5 @@
-import React, { Fragment, useRef, useState } from "react";
-import { Container, IconButton, Paper, Stack } from '@mui/material';
+import React, { Fragment, useRef, useState, useEffect, useCallback } from "react";
+import { IconButton, Stack, Skeleton } from '@mui/material';
 import AppLayout from "../components/layout/AppLayout";
 import { AttachFile as AttackFileIcon, Send as SendIcon } from "@mui/icons-material";
 import { grayColor,orange } from "../constants/Color";

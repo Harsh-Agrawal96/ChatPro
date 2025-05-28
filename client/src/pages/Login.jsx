@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import toast from "react-hot-toast";
 import { Container, Paper, Typography, TextField, Button, Stack, Avatar, IconButton } from '@mui/material';
@@ -182,7 +181,7 @@ const Login = () => {
                             fullWidth
                             variant='text' 
                             color="info"
-                            onClick={ () => setIsLogin( (prev) => !prev ) }
+                            onClick={toggleLogin}
                             disabled={isLoading}
                         > Sign Up Instead </Button>
 
@@ -305,7 +304,7 @@ const Login = () => {
                             fullWidth
                             variant='text' 
                             color="info"
-                            onClick={ () => setIsLogin( (prev) => !prev ) }
+                            onClick={toggleLogin}
                             disabled={isLoading}
                         > Login Instead </Button>
 

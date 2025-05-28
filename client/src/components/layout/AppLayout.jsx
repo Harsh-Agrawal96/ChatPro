@@ -1,4 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { 
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from './Header';
 import Title from '../shared/Title';
@@ -19,7 +24,9 @@ import Profile from '../specific/Profile.jsx';
 import { useMyChatsQuery } from "../../redux/api/api";
 import { useErrors, useSocketEvents } from "../../hooks/hook";
 import {
+  setIsDeleteMenu,
   setIsMobile,
+  setSelectedDeleteChat,
 } from "../../redux/reducers/misc";
 import {
   incrementNotification,
@@ -83,6 +90,7 @@ const AppLayout = () => ( WrappedComponent ) => {
         }, [refetch, navigate]);
 
         const onlineUsersListener = useCallback((data) => {
+            console.log(data)
             setOnlineUsers(data);
         }, []);
 
