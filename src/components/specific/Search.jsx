@@ -51,6 +51,7 @@ const Search = () => {
     };
   }, [search.value]);
 
+
   return (
     <Dialog open={isSearch} onClose={searchCloseHandler}>
       <Stack p={"2rem"} direction={"column"} width={"25rem"}>
@@ -71,14 +72,19 @@ const Search = () => {
         />
 
         <List>
-          {users.map((i) => (
-            <UserItem
-              user={i}
-              key={i._id}
-              handler={addFriendHandler}
-              handlerIsLoading={isLoadingSendFriendRequest}
-            />
-          ))}
+          { users?.length > 0 
+            ? (users.map((i) => (
+              <UserItem
+                user={i}
+                key={i._id}
+                handler={addFriendHandler}
+                handlerIsLoading={isLoadingSendFriendRequest}
+              />
+              ))
+            ) : (
+              <></>
+            )
+          }
         </List>
       </Stack>
     </Dialog>

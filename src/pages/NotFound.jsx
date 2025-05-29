@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Error as ErrorIcon } from "@mui/icons-material";
 import { Container, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const NotFound = () => {
+
+  useEffect(() => {
+    document.title = 'Not Found | ChatPro'
+  }, []);
+
   return (
     <Container maxWidth="lg" sx={{ height: "100vh" }}>
       <Stack

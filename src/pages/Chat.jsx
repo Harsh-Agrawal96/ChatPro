@@ -101,6 +101,10 @@ const Chat = ({ chatId, user }) => {
   };
 
   useEffect(() => {
+    document.title = 'Chat | ChatPro'
+  }, []);
+
+  useEffect(() => {
     socket.emit(CHAT_JOINED, { userId: user._id, members });
     dispatch(removeNewMessagesAlert(chatId));
 

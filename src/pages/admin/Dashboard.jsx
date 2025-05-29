@@ -15,7 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import moment from "moment";
-import React from "react";
+import React, { useEffect } from "react";
 import AdminLayout from "../../components/layout/AdminLayout";
 import { DoughnutChart, LineChart } from "../../components/specific/Charts";
 import {
@@ -33,6 +33,10 @@ const Dashboard = () => {
   );
 
   const { stats } = data || {};
+
+  useEffect(() => {
+    document.title = 'Admin Dashboard | ChatPro'
+  }, []);
 
   useErrors([
     {

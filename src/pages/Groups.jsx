@@ -93,6 +93,10 @@ const Groups = () => {
   useErrors(errors);
 
   useEffect(() => {
+    document.title = 'Groups | ChatPro'
+  }, []);
+
+  useEffect(() => {
     const groupData = groupDetails.data;
     if (groupData) {
       setGroupName(groupData.chat.name);

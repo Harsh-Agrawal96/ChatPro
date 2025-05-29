@@ -65,6 +65,10 @@ const UserManagement = () => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
+    document.title = 'All Users | ChatPro'
+  }, []);
+
+  useEffect(() => {
     if (data) {
       setRows(
         data.users.map((i) => ({

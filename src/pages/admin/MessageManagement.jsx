@@ -102,6 +102,10 @@ const MessageManagement = () => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
+    document.title = 'All Messages | ChatPro'
+  }, []);
+
+  useEffect(() => {
     if (data) {
       setRows(
         data.messages.map((i) => ({

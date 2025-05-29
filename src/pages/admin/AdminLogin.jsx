@@ -25,6 +25,10 @@ const AdminLogin = () => {
   };
 
   useEffect(() => {
+    document.title = 'Admin Login | ChatPro'
+  }, []);
+
+  useEffect(() => {
     dispatch(getAdmin());
   }, [dispatch]);
 

@@ -87,6 +87,10 @@ const ChatManagement = () => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
+    document.title = 'All Chats | ChatPro'
+  }, []);
+
+  useEffect(() => {
     if (data) {
       setRows(
         data.chats.map((i) => ({

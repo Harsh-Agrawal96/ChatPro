@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { VisuallyHiddenInput } from "../components/styles/StyledComponents";
@@ -110,6 +110,14 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    if(isLogin){
+      document.title = 'Login | ChatPro'
+    }else{
+      document.title = 'Logout | ChatPro'
+    }
+  }, [isLogin]);
+
   return (
     <div
       style={{
@@ -203,11 +211,11 @@ const Login = () => {
                 }}
                 onSubmit={handleSignUp}
               >
-                <Stack position={"relative"} width={"10rem"} margin={"auto"}>
+                <Stack position={"relative"} width={"8rem"} margin={"auto"}>
                   <Avatar
                     sx={{
-                      width: "10rem",
-                      height: "10rem",
+                      width: "8rem",
+                      height: "8rem",
                       objectFit: "contain",
                     }}
                     src={avatar.preview}
