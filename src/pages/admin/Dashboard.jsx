@@ -22,7 +22,7 @@ import {
   CurveButton,
   SearchField,
 } from "../../components/styles/StyledComponents";
-import { matBlack } from "../../constants/color";
+import { matBlack } from "../../constants/variableColors";
 import { server } from "../../constants/config";
 import { useErrors } from "../../hooks/hook";
 

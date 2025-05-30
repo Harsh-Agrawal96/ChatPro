@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AppLayout from "../components/layout/AppLayout";
 import { Box, Typography } from "@mui/material";
-import { grayColor } from "../constants/color";
+import { grayColor } from "../constants/variableColors";
 
 const Home = () => {
 

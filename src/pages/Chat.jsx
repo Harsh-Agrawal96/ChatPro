@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import AppLayout from "../components/layout/AppLayout";
 import { IconButton, Skeleton, Stack } from "@mui/material";
-import { grayColor, orange } from "../constants/color";
+import { grayColor, orange } from "../constants/variableColors";
 import {
   AttachFile as AttachFileIcon,
   Send as SendIcon,
