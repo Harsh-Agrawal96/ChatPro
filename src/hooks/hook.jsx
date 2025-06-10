@@ -5,6 +5,9 @@ const useErrors = (errors = []) => {
   useEffect(() => {
     errors.forEach(({ isError, error, fallback=false }) => {
       if (isError) {
+        console.log("checking here")
+        console.log(fallback)
+
         if (fallback) fallback();
         else toast.error(error?.data?.message || "Something went wrong 2");
       }
