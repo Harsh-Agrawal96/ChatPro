@@ -82,6 +82,7 @@ const ChatManagement = () => {
   console.log("here", loading)
   console.log("here2", data)
   console.log("now", error)
+  console.log("see here", server)
 
   useErrors([
     {
