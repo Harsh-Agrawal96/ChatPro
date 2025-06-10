@@ -7,6 +7,7 @@ const useErrors = (errors = []) => {
       if (isError) {
         console.log("checking here")
         console.log(fallback)
+        console.log(errors)
 
         if (fallback) fallback();
         else toast.error(error?.data?.message || "Something went wrong 2");
