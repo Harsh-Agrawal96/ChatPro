@@ -72,6 +72,7 @@ This repository is the frontend part of the project, access the backend part fro
 ## 📡 API
 
 The backend of this project is completely on different repository, you can access the repo form 👉 [here](https://github.com/Harsh-Agrawal96/ChatPro-Backend)
+<br>
 All the API endpoints in UI are from the backend codebase and the frontend page urls are in the codebase 👉 [here](https://github.com/Harsh-Agrawal96/ChatPro-Frontend/blob/main/src/App.jsx)
 
 ---
