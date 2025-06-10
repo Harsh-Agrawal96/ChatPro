@@ -3,10 +3,10 @@ import toast from "react-hot-toast";
 
 const useErrors = (errors = []) => {
   useEffect(() => {
-    errors.forEach(({ isError, error, fallback }) => {
+    errors.forEach(({ isError, error, fallback=false }) => {
       if (isError) {
         if (fallback) fallback();
-        else toast.error(error?.data?.message || "Something went wrong");
+        else toast.error(error?.data?.message || "Something went wrong 2");
       }
     });
   }, [errors]);
@@ -31,13 +31,13 @@ const useAsyncMutation = (mutatationHook) => {
         });
         setData(res.data);
       } else {
-        toast.error(res?.error?.data?.message || "Something went wrong", {
+        toast.error(res?.error?.data?.message || "Something went wrong 3", {
           id: toastId,
         });
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong", { id: toastId });
+      toast.error("Something went wrong 4", { id: toastId });
     } finally {
       setIsLoading(false);
     }
