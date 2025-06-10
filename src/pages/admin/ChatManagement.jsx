@@ -77,6 +77,12 @@ const ChatManagement = () => {
     "dashboard-chats"
   );
 
+
+
+  console.log("here", loading)
+  console.log("here2", data)
+  console.log("now", error)
+
   useErrors([
     {
       isError: error,
