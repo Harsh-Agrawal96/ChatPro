@@ -5,12 +5,8 @@ const useErrors = (errors = []) => {
   useEffect(() => {
     errors.forEach(({ isError, error, fallback=false }) => {
       if (isError) {
-        console.log("checking here")
-        console.log(fallback)
-        console.log(errors)
-
         if (fallback) fallback();
-        else toast.error(error?.data?.message || "Something went wrong 2");
+        else toast.error(error?.data?.message || "Something went wrong");
       }
     });
   }, [errors]);
@@ -35,13 +31,12 @@ const useAsyncMutation = (mutatationHook) => {
         });
         setData(res.data);
       } else {
-        toast.error(res?.error?.data?.message || "Something went wrong 3", {
+        toast.error(res?.error?.data?.message || "Something went wrong", {
           id: toastId,
         });
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong 4", { id: toastId });
+      toast.error("Something went wrong", { id: toastId });
     } finally {
       setIsLoading(false);
     }

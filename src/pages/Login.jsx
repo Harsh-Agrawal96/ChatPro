@@ -62,7 +62,7 @@ const Login = () => {
         id: toastId,
       });
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Something Went Wrong 5", {
+      toast.error(error?.response?.data?.message || "Something Went Wrong", {
         id: toastId,
       });
     } finally {
@@ -102,7 +102,7 @@ const Login = () => {
         id: toastId,
       });
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Something Went Wrong 6", {
+      toast.error(error?.response?.data?.message || "Something Went Wrong", {
         id: toastId,
       });
     } finally {
