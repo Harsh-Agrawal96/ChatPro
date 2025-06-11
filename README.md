@@ -11,7 +11,7 @@ This repository is the frontend part of the project, access the backend part fro
 
 👉 [Visit the Live Site](https://chatpro-rosy.vercel.app)  
 🔑 Test Credentials:
-- **User:** `rahulm` / `Rahul@2025`  
+- **User:** `alicej` / `SecurePass123!`  
 <!-- - **Admin Key:** `A7B9wrC3tD5Esw1F2G8rH`
 - **Admin login url:** `https://chatpro-rosy.vercel.app/admin` -->
 
